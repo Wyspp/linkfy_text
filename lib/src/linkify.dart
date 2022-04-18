@@ -1,10 +1,8 @@
 import 'package:flutter/gestures.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:linkfy_text/src/enum.dart';
 import 'package:linkfy_text/src/model/link.dart';
 import 'package:linkfy_text/src/utils/regex.dart';
-import 'package:flutter/material.dart';
-import 'package:text_selection_controls/text_selection_controls.dart';
 
 /// Linkify [text] containing urls, emails or hashtag
 class LinkifyText extends StatelessWidget {
@@ -136,43 +134,37 @@ class LinkifyText extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: ThemeData(
+        primaryColor: Colors.grey.withOpacity(0.5),
         textTheme: Theme.of(context).textTheme.copyWith(
               button: Theme.of(context).textTheme.button?.copyWith(
-                    backgroundColor: Colors.blueGrey.withOpacity(0.5),
+                    backgroundColor: Colors.grey.withOpacity(0.5),
                     color: Colors.white,
                   ),
             ),
       ),
       child: SelectableText.rich(
-          _linkify(
-            text: text,
-            linkStyle: linkStyle,
-            onTap: onTap,
-            linkTypes: linkTypes,
-          ),
-          key: key,
-          style: textStyle,
-          strutStyle: strutStyle,
-          textAlign: textAlign,
-          textDirection: textDirection,
-          textScaleFactor: textScaleFactor,
-          textWidthBasis: textWidthBasis,
-          semanticsLabel: semanticsLabel,
-          //softWrap: softWrap,
-          //overflow: overflow,
-          onTap: () {
-        if (overallTap != null) overallTap!();
-      },
-          maxLines: maxLines,
-          selectionControls: FlutterSelectionControls(toolBarItems: [
-            ToolBarItem(
-                item: Text('Select All'),
-                itemControl: ToolBarItemControl.selectAll),
-            ToolBarItem(
-                item: Icon(Icons.copy), itemControl: ToolBarItemControl.copy)
-          ])
-          //locale: locale,
-          ),
+        _linkify(
+          text: text,
+          linkStyle: linkStyle,
+          onTap: onTap,
+          linkTypes: linkTypes,
+        ),
+        key: key,
+        style: textStyle,
+        strutStyle: strutStyle,
+        textAlign: textAlign,
+        textDirection: textDirection,
+        textScaleFactor: textScaleFactor,
+        textWidthBasis: textWidthBasis,
+        semanticsLabel: semanticsLabel,
+        //softWrap: softWrap,
+        //overflow: overflow,
+        onTap: () {
+          if (overallTap != null) overallTap!();
+        },
+        maxLines: maxLines,
+        //locale: locale,
+      ),
     );
   }
 }
