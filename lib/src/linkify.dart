@@ -3,6 +3,8 @@ import 'package:flutter/widgets.dart';
 import 'package:linkfy_text/src/enum.dart';
 import 'package:linkfy_text/src/model/link.dart';
 import 'package:linkfy_text/src/utils/regex.dart';
+import 'package:flutter/material.dart';
+import 'package:text_selection_controls/text_selection_controls.dart';
 
 /// Linkify [text] containing urls, emails or hashtag
 class LinkifyText extends StatelessWidget {
@@ -11,6 +13,7 @@ class LinkifyText extends StatelessWidget {
       this.linkStyle,
       this.linkTypes,
       this.onTap,
+      this.overallTap,
       this.strutStyle,
       this.textAlign,
       this.textDirection,
@@ -32,6 +35,9 @@ class LinkifyText extends StatelessWidget {
 
   /// [textStyle] added to the formatted links in the text
   final TextStyle? linkStyle;
+
+  /// [overallTap] when clicking to any text
+  final Function? overallTap;
 
   /// called when a formatted link is pressed, it returns the link as a parameter
   /// ```dart
@@ -128,25 +134,45 @@ class LinkifyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text.rich(
-      _linkify(
-        text: text,
-        linkStyle: linkStyle,
-        onTap: onTap,
-        linkTypes: linkTypes,
+    return Theme(
+      data: ThemeData(
+        textTheme: Theme.of(context).textTheme.copyWith(
+              button: Theme.of(context).textTheme.button?.copyWith(
+                    backgroundColor: Colors.blueGrey.withOpacity(0.5),
+                    color: Colors.white,
+                  ),
+            ),
       ),
-      key: key,
-      style: textStyle,
-      strutStyle: strutStyle,
-      textAlign: textAlign,
-      textDirection: textDirection,
-      textScaleFactor: textScaleFactor,
-      textWidthBasis: textWidthBasis,
-      semanticsLabel: semanticsLabel,
-      softWrap: softWrap,
-      overflow: overflow,
-      maxLines: maxLines,
-      locale: locale,
+      child: SelectableText.rich(
+          _linkify(
+            text: text,
+            linkStyle: linkStyle,
+            onTap: onTap,
+            linkTypes: linkTypes,
+          ),
+          key: key,
+          style: textStyle,
+          strutStyle: strutStyle,
+          textAlign: textAlign,
+          textDirection: textDirection,
+          textScaleFactor: textScaleFactor,
+          textWidthBasis: textWidthBasis,
+          semanticsLabel: semanticsLabel,
+          //softWrap: softWrap,
+          //overflow: overflow,
+          onTap: () {
+        if (overallTap != null) overallTap!();
+      },
+          maxLines: maxLines,
+          selectionControls: FlutterSelectionControls(toolBarItems: [
+            ToolBarItem(
+                item: Text('Select All'),
+                itemControl: ToolBarItemControl.selectAll),
+            ToolBarItem(
+                item: Icon(Icons.copy), itemControl: ToolBarItemControl.copy)
+          ])
+          //locale: locale,
+          ),
     );
   }
 }
