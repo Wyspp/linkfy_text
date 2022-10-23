@@ -1,3 +1,4 @@
+import 'package:custom_selectable_text/custom_selectable_text.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:linkfy_text/src/enum.dart';
@@ -142,7 +143,7 @@ class LinkifyText extends StatelessWidget {
                   ),
             ),
       ),
-      child: SelectableText.rich(
+      child: CustomSelectableText.rich(
         _linkify(
           text: text,
           linkStyle: linkStyle,
@@ -159,9 +160,10 @@ class LinkifyText extends StatelessWidget {
         semanticsLabel: semanticsLabel,
         //softWrap: softWrap,
         //overflow: overflow,
-        onTap: () {
-          if (overallTap != null) overallTap!();
-        },
+        items: [
+          CustomSelectableTextItem(controlType: SelectionControlType.copy),
+          CustomSelectableTextItem(controlType: SelectionControlType.selectAll),
+        ],
         maxLines: maxLines,
         //locale: locale,
       ),
