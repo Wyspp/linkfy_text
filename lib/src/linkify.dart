@@ -164,6 +164,7 @@ class LinkifyText extends StatelessWidget {
         onTap: () {
           if (overallTap != null) overallTap!();
         },
+        cursorColor: Colors.blueAccent,
         maxLines: maxLines,
         selectionHeightStyle: BoxHeightStyle.includeLineSpacingMiddle,
         //locale: locale,
