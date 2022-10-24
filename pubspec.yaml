@@ -11,8 +11,6 @@ dependencies:
   flutter:
     sdk: flutter
 
-  custom_selectable_text:
-
 dev_dependencies:
   flutter_test:
     sdk: flutter
