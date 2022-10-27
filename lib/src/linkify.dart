@@ -134,41 +134,25 @@ class LinkifyText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        primaryColor: Colors.grey.withOpacity(0.5),
-        textTheme: Theme.of(context).textTheme.copyWith(
-              button: Theme.of(context).textTheme.button?.copyWith(
-                    backgroundColor: Colors.grey.withOpacity(0.5),
-                    color: Colors.white,
-                  ),
-            ),
+    return Text.rich(
+      _linkify(
+        text: text,
+        linkStyle: linkStyle,
+        onTap: onTap,
+        linkTypes: linkTypes,
       ),
-      child: SelectableText.rich(
-        _linkify(
-          text: text,
-          linkStyle: linkStyle,
-          onTap: onTap,
-          linkTypes: linkTypes,
-        ),
-        key: key,
-        style: textStyle,
-        strutStyle: strutStyle,
-        textAlign: textAlign,
-        textDirection: textDirection,
-        textScaleFactor: textScaleFactor,
-        textWidthBasis: textWidthBasis,
-        semanticsLabel: semanticsLabel,
-        //softWrap: softWrap,
-        //overflow: overflow,
-        onTap: () {
-          if (overallTap != null) overallTap!();
-        },
-        cursorColor: Colors.blueAccent,
-        maxLines: maxLines,
-        selectionHeightStyle: BoxHeightStyle.includeLineSpacingMiddle,
-        //locale: locale,
-      ),
+      key: key,
+      style: textStyle,
+      strutStyle: strutStyle,
+      textAlign: textAlign,
+      textDirection: textDirection,
+      textScaleFactor: textScaleFactor,
+      textWidthBasis: textWidthBasis,
+      semanticsLabel: semanticsLabel,
+      softWrap: softWrap,
+      overflow: overflow,
+      maxLines: maxLines,
+      locale: locale,
     );
   }
 }
